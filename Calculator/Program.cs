@@ -1,58 +1,28 @@
 ﻿using System;
+using CalculatorLibrary;
 
-namespace Calculator
+namespace CalculatorProgram 
 {
-    class Calculator
-    {
-        public static double DoOperation(double num1, double num2, string op)
-        {
-            double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.
-
-            // Use a switch statement to do the math.
-            switch (op)
-            {
-                case "с":
-                    result = num1 + num2;
-                    break;
-                case "в":
-                    result = num1 - num2;
-                    break;
-                case "у":
-                    result = num1 * num2;
-                    break;
-                case "д":
-                    // Ask the user to enter a non-zero divisor.
-                    if (num2 != 0)
-                    {
-                        result = num1 / num2;
-                    }
-                    break;
-                // Return text for an incorrect option entry.
-                default:
-                    break;
-            }
-            return result;
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
         {
             bool endApp = false;
-            // Display title as the C# console calculator app.
+            // Отображать заголовок как приложение консольного калькулятора C#.
             Console.WriteLine("Консольный калькулятор на C#\r");
             Console.WriteLine("------------------------\n");
 
+            Calculator calculator = new Calculator();
+
             while (!endApp)
             {
-                // Declare variables and set to empty.
+                // Объявление переменных и устанавливайте их пустыми.
                 string numInput1 = "";
                 string numInput2 = "";
                 double result = 0;
 
-                // Ask the user to type the first number.
-                Console.WriteLine("Введите число и нажмите Enter");
+                // Попросите пользователя ввести первое число.
+                Console.WriteLine("Введите первое число и нажмите Enter");
                 numInput1 = Console.ReadLine();
 
                 double cleanNum1 = 0;
@@ -62,7 +32,7 @@ namespace Calculator
                     numInput1 = Console.ReadLine();
                 }
 
-                // Ask the user to type the second number.
+                // Попросите пользователя ввести второе число.
                 Console.WriteLine("Введите второе число и нажмите Enter");
                 numInput2 = Console.ReadLine();
 
@@ -73,7 +43,7 @@ namespace Calculator
                     numInput2 = Console.ReadLine();
                 }
 
-                // Ask the user to choose an operator.
+                // Попросите пользователя выбрать операцию.
                 Console.WriteLine("Выберите операцию из предложенного списка:");
                 Console.WriteLine("\tс - Сложение");
                 Console.WriteLine("\tв - Вычитание");
@@ -85,7 +55,7 @@ namespace Calculator
 
                 try
                 {
-                    result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                    result = calculator.DoOperation(cleanNum1, cleanNum2, op);
                     if (double.IsNaN(result))
                     {
                         Console.WriteLine("Эта операция приведет к математической ошибке.\n");
@@ -99,11 +69,11 @@ namespace Calculator
 
                 Console.WriteLine("------------------------\n");
 
-                // Wait for the user to respond before closing.
+                // Подождите, пока пользователь ответит, прежде чем закрывать.
                 Console.Write("Нажмите 'н' и Enter, чтобы закрыть приложение, или нажмите любую другую клавишу и Enter, чтобы продолжить: ");
                 if (Console.ReadLine() == "н") endApp = true;
 
-                Console.WriteLine("\n"); // Friendly linespacing.
+                Console.WriteLine("\n"); // Удобный межстрочный интервал.
             }
             return;
         }
